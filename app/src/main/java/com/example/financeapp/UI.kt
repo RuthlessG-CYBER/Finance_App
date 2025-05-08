@@ -19,8 +19,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.BackHand
 import androidx.compose.material.icons.filled.Dashboard
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.NotificationAdd
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Visibility
@@ -28,6 +30,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -42,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -245,99 +249,98 @@ fun UI(){
                 }
                 Spacer(modifier = Modifier.weight(1f))
             }
+        }
+        Spacer(modifier = Modifier.height(15.dp))
 
+        Card(modifier = Modifier.fillMaxSize(),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFFf5f8f6)
+            ),
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+            ){
+            Column(modifier = Modifier.fillMaxSize()){
+                Row(modifier = Modifier.fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, top = 10.dp)){
+                    Text(text = "Recent Activity",
+                        fontSize = 15.sp,
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        fontWeight = FontWeight.Bold
+                        )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Row{
+                        Text(text = "See Details",
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            color = Color(0xFF47815a),
+                            fontWeight = FontWeight.Bold
+                            )
+                        Icon(Icons.Default.KeyboardArrowRight,
+                            contentDescription = "",
+                            modifier = Modifier.size(20.dp)
+                                .align(Alignment.CenterVertically),
+                            tint = Color(0xFF47815a)
+                        )
+
+                    }
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Column{
+                    dataList.forEach { item ->
+                        Card(modifier = Modifier.fillMaxWidth()
+                            .height(70.dp)
+                            .padding(start = 20.dp, end = 20.dp)){
+                            Row(modifier = Modifier.fillMaxSize()
+                                .padding(start = 10.dp, end = 10.dp)
+                            ){
+                                Card(modifier = Modifier.size(60.dp).align(Alignment.CenterVertically),
+                                    shape = RoundedCornerShape(30.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = Color.LightGray
+                                    )
+                                ){
+                                    Image(imageVector = item.image,
+                                        contentDescription = "Profile Image",
+                                        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                                        modifier = Modifier.fillMaxSize()
+                                    )
+                                }
+                                Card(modifier = Modifier.fillMaxSize()
+                                    .padding(top = 15.dp, bottom = 15.dp)){
+                                    Box(modifier = Modifier.fillMaxSize()) {
+                                        Text(
+                                            text = item.profileName,
+                                            modifier = Modifier
+                                                .align(Alignment.TopStart)
+                                                .padding(start = 5.dp, end = 5.dp),
+                                            fontWeight = FontWeight.Bold,
+                                            letterSpacing = 1.sp
+                                        )
+                                        Text(
+                                            text = item.paymentAmount,
+                                            modifier = Modifier
+                                                .align(Alignment.TopEnd)
+                                                .padding(start = 5.dp, end = 5.dp),
+                                            fontWeight = FontWeight.Bold
+                                        )
+                                        Text(
+                                            text = item.paymentTime,
+                                            modifier = Modifier
+                                                .align(Alignment.BottomStart)
+                                                .padding(start = 5.dp, end = 5.dp)
+                                        )
+                                        Text(
+                                            text = item.paymentStatus,
+                                            modifier = Modifier
+                                                .align(Alignment.BottomEnd)
+                                                .padding(start = 5.dp, end = 5.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(5.dp))
+                    }
+                }
+            }
         }
     }
 }
-//data class CardInfo(val number: String, val backgroundRes: Int)
-//
-//val cards = remember { mutableStateListOf<CardInfo>() }
-//var showDialog by remember { mutableStateOf(false) }
-//var cardNumber by remember { mutableStateOf("") }
-//
-//if (showDialog) {
-//    AlertDialog(
-//        onDismissRequest = { showDialog = false },
-//        title = { Text("Add Card") },
-//        text = {
-//            Column {
-//                OutlinedTextField(
-//                    value = cardNumber,
-//                    onValueChange = { cardNumber = it },
-//                    label = { Text("Card Number") }
-//                )
-//            }
-//        },
-//        confirmButton = {
-//            TextButton(onClick = {
-//                if (cardNumber.isNotBlank()) {
-//                    cards.add(CardInfo("**** ${cardNumber.takeLast(4)}", R.drawable.card_background1))
-//                    cardNumber = ""
-//                    showDialog = false
-//                }
-//            }) {
-//                Text("Add")
-//            }
-//        },
-//        dismissButton = {
-//            TextButton(onClick = {
-//                showDialog = false
-//                cardNumber = ""
-//            }) {
-//                Text("Cancel")
-//            }
-//        }
-//    )
-//}
-//
-//Row {
-//    Text("Cards", modifier = Modifier.align(Alignment.CenterVertically))
-//
-//    Spacer(modifier = Modifier.width(10.dp))
-//
-//    // Add Button Card
-//    Card(
-//        modifier = Modifier
-//            .size(50.dp)
-//            .clickable { showDialog = true },
-//        shape = RoundedCornerShape(30.dp),
-//        colors = CardDefaults.cardColors(containerColor = Color(0xFFb8dec7))
-//    ) {
-//        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-//            Icon(
-//                imageVector = Icons.Default.Add,
-//                contentDescription = "Add Card",
-//                tint = Color.White
-//            )
-//        }
-//    }
-//
-//    Spacer(modifier = Modifier.width(10.dp))
-//
-//    // Dynamically Render Added Cards
-//    cards.forEach { card ->
-//        Card(
-//            modifier = Modifier
-//                .height(50.dp)
-//                .width(90.dp)
-//                .padding(end = 8.dp),
-//            shape = RoundedCornerShape(10.dp)
-//        ) {
-//            Box {
-//                Image(
-//                    painter = painterResource(card.backgroundRes),
-//                    contentDescription = "Card Background",
-//                    modifier = Modifier.fillMaxSize(),
-//                    contentScale = ContentScale.Crop
-//                )
-//                Text(
-//                    text = card.number,
-//                    color = Color.White,
-//                    modifier = Modifier
-//                        .align(Alignment.BottomStart)
-//                        .padding(start = 10.dp)
-//                )
-//            }
-//        }
-//    }
-//}
