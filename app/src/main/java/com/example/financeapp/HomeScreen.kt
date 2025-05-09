@@ -1,6 +1,5 @@
 package com.example.financeapp
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,21 +15,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.BackHand
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.NotificationAdd
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -45,12 +39,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun UI(){
+fun HomeUI(){
     Column(modifier = Modifier.fillMaxSize().systemBarsPadding()){
         Card(modifier = Modifier.height(80.dp).fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -106,7 +99,7 @@ fun UI(){
                 Spacer(modifier = Modifier.height(5.dp))
                 Row {
                     Text(
-                        text = if(isVisible) "$17,290.91" else "*******",
+                        text = if(isVisible) "*******" else "$17,290.91",
                         fontSize = 35.sp,
                         modifier = Modifier.padding(start = 20.dp).align(Alignment.CenterVertically),
                         color = Color.Black
@@ -117,8 +110,8 @@ fun UI(){
                         modifier = Modifier.padding(end = 20.dp)
                     ) {
                         Icon(
-                            imageVector = if (isVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                            contentDescription = if (isVisible) "Hide Balance" else "Show Balance",
+                            imageVector = if (isVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
+                            contentDescription = if (isVisible) "Show Balance" else "Hide Balance",
                             modifier = Modifier.size(30.dp),
                             tint = Color.Black
                         )
@@ -214,53 +207,61 @@ fun UI(){
                         containerColor = Color(0xFF104826)
                     )
                     ) {
-                    Icon(Icons.Default.AddTask,
-                        contentDescription = "",
+                    Icon(Icons.Default.Send,
+                        contentDescription = "Send Icon",
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
+                    Spacer(modifier = Modifier.width(5.dp))
                     Text(text = "Send")
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 TextButton(onClick = {},
                     modifier = Modifier.align(Alignment.CenterVertically),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF559e72)
+                        containerColor = Color(0xFF95e686)
                     )) {
-                    Icon(Icons.Default.BackHand,
-                        contentDescription = "",
+                    Icon(
+                        Icons.Default.BackHand,
+                        contentDescription = "Request Icon",
+                        tint = Color(0xFF075E20)
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(text = "Request")
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(
+                        text = "Request",
+                        color = Color(0xFF075E20)
+                    )
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 Card(modifier = Modifier.size(40.dp).align(Alignment.CenterVertically),
                     shape = RoundedCornerShape(25.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = Color(0xFFc8d8ce)
-                    )
+                        containerColor = Color(0xFFc8d8ce))
                     ){
                     Box(modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                         ){
-                        Icon(Icons.Default.Dashboard,
-                            contentDescription = "",
+                        Icon(
+                            Icons.Default.Dashboard,
+                            contentDescription = "Dashboard Icon",
                         )
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
             }
         }
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
 
         Card(modifier = Modifier.fillMaxSize(),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFf5f8f6)
+                containerColor = Color(0xFFFAFCFA)
             ),
-            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+            shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            elevation = CardDefaults.cardElevation(
+                defaultElevation = 10.dp
+            )
             ){
             Column(modifier = Modifier.fillMaxSize()){
                 Row(modifier = Modifier.fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 10.dp)){
+                    .padding(start = 20.dp, end = 20.dp, top = 20.dp)){
                     Text(text = "Recent Activity",
                         fontSize = 15.sp,
                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -282,12 +283,17 @@ fun UI(){
 
                     }
                 }
-                Spacer(modifier = Modifier.height(20.dp))
-                Column{
-                    dataList.forEach { item ->
+                Spacer(modifier = Modifier.height(15.dp))
+
+                Column(modifier = Modifier){
+                    dataList.take(6).forEach { item ->
                         Card(modifier = Modifier.fillMaxWidth()
                             .height(70.dp)
-                            .padding(start = 20.dp, end = 20.dp)){
+                            .padding(start = 20.dp, end = 20.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.Transparent
+                            )
+                            ){
                             Row(modifier = Modifier.fillMaxSize()
                                 .padding(start = 10.dp, end = 10.dp)
                             ){
@@ -303,8 +309,13 @@ fun UI(){
                                         modifier = Modifier.fillMaxSize()
                                     )
                                 }
+                                Spacer(modifier = Modifier.width(15.dp))
                                 Card(modifier = Modifier.fillMaxSize()
-                                    .padding(top = 15.dp, bottom = 15.dp)){
+                                    .padding(top = 15.dp, bottom = 15.dp),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = Color.Transparent
+                                    )
+                                    ){
                                     Box(modifier = Modifier.fillMaxSize()) {
                                         Text(
                                             text = item.profileName,

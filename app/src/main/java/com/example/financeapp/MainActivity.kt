@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.financeapp.ui.theme.FinanceAppTheme
 import kotlinx.coroutines.delay
 
@@ -20,7 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            UI()
+//            SimpleBarChart(data = listOf(0.3f, 0.6f, 0.5f, 0.9f, 0.7f, 0.6f, 0.4f))
+            HomeUI()
         }
     }
 }
