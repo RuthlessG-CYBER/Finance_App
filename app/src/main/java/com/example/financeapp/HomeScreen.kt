@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun HomeUI(){
     Column(modifier = Modifier.fillMaxSize().systemBarsPadding()){
+        Spacer(modifier = Modifier.height(10.dp))
         Card(modifier = Modifier.height(80.dp).fillMaxWidth(),
             colors = CardDefaults.cardColors(
                 containerColor = Color.White

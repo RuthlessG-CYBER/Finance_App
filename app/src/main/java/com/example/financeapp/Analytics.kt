@@ -1,5 +1,7 @@
 package com.example.financeapp
 
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,17 +15,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -70,7 +78,8 @@ fun AnalyticsUI(){
                         Text(text = "$7,200.13",
                             fontSize = 20.sp,
                             color = Color.Black,
-                            modifier = Modifier.padding(start = 20.dp)
+                            modifier = Modifier.padding(start = 20.dp),
+                            fontWeight = FontWeight.Bold
                             )
                         Spacer(modifier = Modifier.height(5.dp))
                         Row(
@@ -86,11 +95,12 @@ fun AnalyticsUI(){
                             Text(
                                 text = "12.34%",
                                 color = Color(0xFF4CAF50),
-                                fontSize = 13.sp
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Normal
                             )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
-                                text = "From Last Week",
+                                text = "from last week",
                                 color = Color.Black,
                                 fontSize = 13.sp
                             )
@@ -108,6 +118,114 @@ fun AnalyticsUI(){
                 }
             }
         }
+        Spacer(modifier = Modifier.height(20.dp))
 
+        Column(modifier = Modifier.fillMaxSize()
+            .padding(start = 20.dp, end = 20.dp)){
+            Row {
+                Column {
+                    Text(
+                        text = "Expense",
+                        fontSize = 15.sp,
+                        color = Color.DarkGray
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        text = "-$2,700.13",
+                        fontSize = 25.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                OutlinedButton(onClick = {},
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                    ) {
+                    Row {
+                        Text(
+                            text = "July 2025",
+                            color = Color.Black,
+                            fontSize = 15.sp,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowUp,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(20.dp)
+                                .align(Alignment.CenterVertically)
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Divider()
+            Spacer(modifier = Modifier.height(20.dp))
+            dataList2.forEach { item ->
+                Row {
+                    Icon(Icons.Default.Adjust,
+                        contentDescription = null,
+                        modifier = Modifier.size(10.dp)
+                            .align(Alignment.CenterVertically)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = item.text,
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        fontSize = 15.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = item.amount,
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        fontSize = 15.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+
+        }
     }
 }
+
+@Composable
+fun SimpleBarChart(
+    data: List<Float>, // values between 0f–1f
+    labels: List<String> = listOf("S", "M", "T", "W", "T", "F", "S"),
+    barColor: Color = Color(0xFF81C784)
+) {
+    val maxBarHeight = 100.dp
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        data.forEachIndexed { index, value ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Bottom
+            ) {
+                Box(
+                    modifier = Modifier
+                        .width(12.dp)
+                        .height(maxBarHeight * value.coerceIn(0f, 1f))
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(barColor)
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = labels.getOrElse(index) { "" }, fontSize = 10.sp)
+            }
+        }
+    }
+}
+
+

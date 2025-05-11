@@ -22,3 +22,17 @@ val dataList = listOf(
     data(Icons.Default.Person, "Arijit", "Yesterday, 1:03", "-$10", "Transferred"),
     data(Icons.Default.Person, "Kiran", "Yesterday, 1:50", "-$1200", "Transferred")
 )
+
+data class datas(
+    var text : String,
+    var amount : String
+)
+
+val dataList2 = listOf(
+    datas("Healthcare", "+$200"),
+    datas("Food", "-$1200"),
+    datas("Utilities", "+$1200"),
+    datas("Transportation", "-$1200"),
+    datas("Suplies", "+$1200"),
+
+)
