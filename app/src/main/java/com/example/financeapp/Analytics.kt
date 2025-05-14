@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,6 +28,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,9 +39,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
-fun AnalyticsUI(){
+fun AnalyticsUI(
+    navController: NavHostController,
+    selectedMonth: MonthYear,
+    onMonthSelected: (MonthYear) -> Unit) {
     Column(modifier = Modifier.fillMaxSize().systemBarsPadding()){
         Text(
             text = "Analytics",
@@ -131,26 +140,28 @@ fun AnalyticsUI(){
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = "-$2,700.13",
+                        text = selectedMonth.expences,
                         fontSize = 25.sp,
                         color = Color.Black,
                         fontWeight = FontWeight.Medium
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                OutlinedButton(onClick = {},
+                var expanded by remember { mutableStateOf(false) }
+
+                OutlinedButton(onClick = { expanded = true },
                     modifier = Modifier.align(Alignment.CenterVertically)
                     ) {
                     Row {
                         Text(
-                            text = "July 2025",
+                            text = "${selectedMonth.month} ${selectedMonth.year}",
                             color = Color.Black,
                             fontSize = 15.sp,
                             modifier = Modifier.align(Alignment.CenterVertically)
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Icon(
-                            imageVector = Icons.Default.KeyboardArrowUp,
+                            imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                             contentDescription = null,
                             tint = Color.Black,
                             modifier = Modifier.size(20.dp)
@@ -158,11 +169,29 @@ fun AnalyticsUI(){
                         )
                     }
                 }
+                Box {
+                    androidx.compose.material3.DropdownMenu(
+                        expanded = expanded,
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier.background(Color.White)
+                            .align(Alignment.CenterEnd)
+                    ) {
+                        monthYearList.forEach { monthYear ->
+                            androidx.compose.material3.DropdownMenuItem(
+                                text = { Text("${monthYear.month} ${monthYear.year}") },
+                                onClick = {
+                                    onMonthSelected(monthYear)
+                                    expanded = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
             Spacer(modifier = Modifier.height(20.dp))
             Divider()
             Spacer(modifier = Modifier.height(20.dp))
-            dataList2.forEach { item ->
+            selectedMonth.dataList.forEach { item ->
                 Row {
                     Icon(Icons.Default.Adjust,
                         contentDescription = null,

@@ -1,41 +1,50 @@
 package com.example.financeapp
-//
-//import androidx.compose.foundation.background
-//import androidx.compose.foundation.layout.Arrangement
-//import androidx.compose.foundation.layout.Box
-//import androidx.compose.foundation.layout.Column
-//import androidx.compose.foundation.layout.Row
-//import androidx.compose.foundation.layout.Spacer
-//import androidx.compose.foundation.layout.fillMaxWidth
-//import androidx.compose.foundation.layout.height
-//import androidx.compose.foundation.layout.offset
-//import androidx.compose.foundation.layout.padding
-//import androidx.compose.foundation.layout.size
-//import androidx.compose.foundation.layout.width
-//import androidx.compose.foundation.shape.CircleShape
-//import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.BarChart
-//import androidx.compose.material.icons.filled.CenterFocusStrong
-//import androidx.compose.material.icons.filled.CreditCard
-//import androidx.compose.material.icons.filled.Home
-//import androidx.compose.material.icons.filled.Person
-//import androidx.compose.material.icons.filled.Search
-//import androidx.compose.material3.Icon
-//import androidx.compose.material3.NavigationBar
-//import androidx.compose.material3.NavigationBarItem
-//import androidx.compose.material3.NavigationBarItemDefaults
-//import androidx.compose.material3.Text
-//import androidx.compose.runtime.Composable
-//import androidx.compose.ui.Alignment
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.draw.clip
-//import androidx.compose.ui.graphics.Color
-//import androidx.compose.ui.graphics.vector.ImageVector
-//import androidx.compose.ui.unit.dp
-//import androidx.compose.ui.unit.sp
-//import androidx.navigation.NavHostController
-//import androidx.navigation.compose.currentBackStackEntryAsState
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Analytics
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.CenterFocusStrong
+import androidx.compose.material.icons.filled.CreditCard
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.QrCodeScanner
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 //
 ////data class CardInfo(val number: String, val backgroundRes: Int)
 ////
@@ -129,79 +138,51 @@ package com.example.financeapp
 ////        }
 ////    }
 ////}
-//@Composable
-//fun CustomBottomBar(
-//    navController: NavHostController,
-//    currentRoute: String?
-//) {
-//    val items = listOf(
-//        BottomNavItem("Home", Icons.Default.Home, "home"),
-//        BottomNavItem("Stats", Icons.Default.BarChart, "stats"),
-//        BottomNavItem("Scan", Icons.Default.CenterFocusStrong, "scan"), // center item
-//        BottomNavItem("Cards", Icons.Default.CreditCard, "cards"),
-//        BottomNavItem("Profile", Icons.Default.Person, "profile")
-//    )
-//
-//    NavigationBar(
-//        containerColor = Color.White,
-//        tonalElevation = 10.dp
-//    ) {
-//        items.forEachIndexed { index, item ->
-//            val selected = currentRoute == item.route
-//
-//            NavigationBarItem(
-//                selected = selected,
-//                onClick = {
-//                    navController.navigate(item.route) {
-//                        popUpTo(navController.graph.startDestinationId) {
-//                            saveState = true
-//                        }
-//                        launchSingleTop = true
-//                        restoreState = true
-//                    }
-//                },
-//                icon = {
-//                    Box(
-//                        contentAlignment = Alignment.Center,
-//                        modifier = Modifier
-//                            .size(if (index == 2) 56.dp else 48.dp)
-//                            .clip(CircleShape)
-//                            .background(
-//                                if (selected && index == 2) Color(0xFFE6F4EA) else Color.Transparent
-//                            )
-//                    ) {
-//                        Icon(
-//                            imageVector = item.icon,
-//                            contentDescription = item.label,
-//                            tint = when {
-//                                selected && index == 0 -> Color(0xFF075E20) // Green for first item
-//                                selected -> Color(0xFF1A4D2E)
-//                                else -> Color.Gray
-//                            }
-//                        )
-//                        if (selected && index == 0) {
-//                            // small dot under icon
-//                            Box(
-//                                modifier = Modifier
-//                                    .align(Alignment.BottomCenter)
-//                                    .size(6.dp)
-//                                    .clip(CircleShape)
-//                                    .background(Color(0xFF075E20))
-//                                    .offset(y = 6.dp)
-//                            )
-//                        }
-//                    }
-//                },
-//                label = null,
-//                alwaysShowLabel = false
-//            )
-//        }
-//    }
-//}
-//
-//data class BottomNavItem(
-//    val label: String,
-//    val icon: ImageVector,
-//    val route: String
-//)
-//
+@Composable
+fun CustomBottomBar(navController: NavHostController) {
+    Scaffold(
+        bottomBar = {
+            BottomAppBar(
+                modifier = Modifier.height(80.dp).shadow(elevation = 10.dp),
+                containerColor = Color(0xFFEEEEEE),
+                contentColor = Color.Black,
+                tonalElevation = 10.dp
+            ) {
+                IconButton(onClick = { navController.navigate("bar") }) {
+                    Icon(Icons.Default.Home, contentDescription = "Home",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { navController.navigate("analytics") }) {
+                    Icon(Icons.Default.Analytics, contentDescription = "Analytics",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = {}) {
+                    Icon(Icons.Default.QrCodeScanner, contentDescription = "Scanner",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { navController.navigate("addCard")}) {
+                    Icon(Icons.Default.CreditCard, contentDescription = "Credit Card",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { navController.navigate("account")}) {
+                    Icon(Icons.Default.AccountCircle, contentDescription = "Account",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+            }
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            HomeUI()
+        }
+    }
+}
+

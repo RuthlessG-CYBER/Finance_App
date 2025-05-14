@@ -41,10 +41,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Composable
 fun HomeUI(){
-    Column(modifier = Modifier.fillMaxSize().systemBarsPadding()){
+    Column(modifier = Modifier.fillMaxSize()){
+
         Spacer(modifier = Modifier.height(10.dp))
         Card(modifier = Modifier.height(80.dp).fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -287,7 +289,7 @@ fun HomeUI(){
                 Spacer(modifier = Modifier.height(15.dp))
 
                 Column(modifier = Modifier){
-                    dataList.take(6).forEach { item ->
+                    dataList.take(5).forEach { item ->
                         Card(modifier = Modifier.fillMaxWidth()
                             .height(70.dp)
                             .padding(start = 20.dp, end = 20.dp),
@@ -349,10 +351,15 @@ fun HomeUI(){
                                 }
                             }
                         }
-                        Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun seeDetails(){
+
 }
