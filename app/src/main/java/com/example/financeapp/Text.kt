@@ -35,6 +35,10 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -138,51 +142,3 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 ////        }
 ////    }
 ////}
-@Composable
-fun CustomBottomBar(navController: NavHostController) {
-    Scaffold(
-        bottomBar = {
-            BottomAppBar(
-                modifier = Modifier.height(80.dp).shadow(elevation = 10.dp),
-                containerColor = Color(0xFFEEEEEE),
-                contentColor = Color.Black,
-                tonalElevation = 10.dp
-            ) {
-                IconButton(onClick = { navController.navigate("bar") }) {
-                    Icon(Icons.Default.Home, contentDescription = "Home",
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = { navController.navigate("analytics") }) {
-                    Icon(Icons.Default.Analytics, contentDescription = "Analytics",
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = {}) {
-                    Icon(Icons.Default.QrCodeScanner, contentDescription = "Scanner",
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = { navController.navigate("addCard")}) {
-                    Icon(Icons.Default.CreditCard, contentDescription = "Credit Card",
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                IconButton(onClick = { navController.navigate("account")}) {
-                    Icon(Icons.Default.AccountCircle, contentDescription = "Account",
-                        modifier = Modifier.size(30.dp)
-                    )
-                }
-            }
-        }
-    ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            HomeUI()
-        }
-    }
-}
-

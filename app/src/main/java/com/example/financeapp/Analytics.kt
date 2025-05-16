@@ -43,7 +43,7 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun AnalyticsUI(
-    navController: NavHostController,
+//    navController: NavHostController,
     selectedMonth: MonthYear,
     onMonthSelected: (MonthYear) -> Unit) {
     Column(modifier = Modifier.fillMaxSize().systemBarsPadding()){

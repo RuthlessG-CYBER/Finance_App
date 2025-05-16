@@ -1,9 +1,13 @@
 package com.example.financeapp
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
+import androidx.compose.ui.Modifier
 
 @Composable
-fun ProfileUI(navController: NavHostController){
+fun ProfileUI(){
+    Box(modifier = Modifier.fillMaxSize()){
 
+    }
 }
