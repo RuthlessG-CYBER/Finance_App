@@ -22,6 +22,11 @@
   <img src= "https://github.com/user-attachments/assets/d8a89a26-9b36-420f-93ed-9c7dfc58d123" height= "200px">
   <img src= "https://github.com/user-attachments/assets/03a2297e-0143-4dc0-8302-ae0c86788c9e" height= "200px">
 
+  <li><h4>Day_6</h4></li>
+  <img src= "https://github.com/user-attachments/assets/ebb24eef-aceb-4631-bff0-6ff991e32d08" height= "200px">
+  
+
+
 </ul>
 
 
