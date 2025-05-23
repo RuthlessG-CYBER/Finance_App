@@ -24,7 +24,14 @@
 
   <li><h4>Day_6</h4></li>
   <img src= "https://github.com/user-attachments/assets/ebb24eef-aceb-4631-bff0-6ff991e32d08" height= "200px">
-  
+
+  <li><h4>Day_7</h4></li>
+  <img src= "https://github.com/user-attachments/assets/7b45f449-074c-4081-9924-363bb9f95598" height= "200px">
+  <img src= "https://github.com/user-attachments/assets/b9d618f9-9273-4d4d-bd47-affba858031b" height= "200px">
+  <img src= "https://github.com/user-attachments/assets/cc9a7085-6e46-4f06-962c-c4c73be1b44c" height= "200px">
+  <img src= "https://github.com/user-attachments/assets/ebb24eef-aceb-4631-bff0-6ff991e32d08" height= "200px">
+  <img src= "https://github.com/user-attachments/assets/d14e2c11-c0c0-4e24-bb12-ca9bf20627e0" height= "200px">
+  <img src= "https://github.com/user-attachments/assets/c1af851e-920f-407c-b960-28b59e99d0a2" height= "200px">
 
 
 </ul>
