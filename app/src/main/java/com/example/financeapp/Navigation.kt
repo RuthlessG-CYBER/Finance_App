@@ -17,6 +17,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -24,9 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.financeapp.CardInfo
 
 //@Composable
 //fun NavigationScreens() {
@@ -34,34 +37,20 @@ import androidx.navigation.compose.rememberNavController
 //
 //    NavHost(
 //        navController = navController,
-//        startDestination = "bar"
+//        startDestination = "MainScreen"
 //    ) {
-//        composable("bar") {
-//            CustomBottomBar(navController = navController)
+//        composable("seeDetails") {
+//            SeeDetailsUI(navController)
 //        }
-//        composable("analytics") {
-//            var selectedMonth by remember { mutableStateOf(MonthYear("July", 2025, dataList3, "-$2000")) }
-//            AnalyticsUI(
-//                selectedMonth = selectedMonth,
-//                onMonthSelected = {
-//                    selectedMonth = it
-//                }
-//            )
-//        }
-//        composable("profile") {
-//            ProfileUI(navController = navController)
-//        }
-//        composable("settings") {
-//            SettingsUI(navController = navController)
-//        }
-//        composable("addCard") {
-//            AddCardUI(navController = navController)
+//        composable("MainScreen") {
+//            MainScreen(navController)
 //        }
 //    }
 //}
 
 @Composable
 fun MainScreen() {
+    val cardList = remember { mutableStateListOf<CardInfo>() }
     var selectedRoute by remember {mutableStateOf("bar")}
     Scaffold(
         bottomBar = {
@@ -129,11 +118,10 @@ fun MainScreen() {
                         }
                     )
                 }
-
-                "settings" -> SettingsUI()
-                "addCard" -> AddCardUI()
+                "seeDetails" -> SeeDetailsUI()
+                "addCard" -> AddCardUI(cardList)
                 "account" -> ProfileUI()
-                else -> HomeUI()
+                else -> HomeUI(cardList = cardList, onNavigateTo = { selectedRoute = it })
             }
 
         }

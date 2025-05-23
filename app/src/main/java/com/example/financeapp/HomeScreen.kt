@@ -1,6 +1,10 @@
 package com.example.financeapp
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.BackHand
@@ -31,20 +38,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun HomeUI(){
+fun HomeUI(cardList: List<CardInfo>, onNavigateTo: (String) -> Unit){
+
     Column(modifier = Modifier.fillMaxSize()){
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -123,7 +134,8 @@ fun HomeUI(){
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
-        Card(modifier = Modifier.fillMaxWidth().height(60.dp),
+        Card(modifier = Modifier.fillMaxWidth().height(60.dp)
+            .padding(start = 20.dp, end = 20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             )){
@@ -131,7 +143,7 @@ fun HomeUI(){
                 Text(
                     text = "Cards",
                     fontSize = 15.sp,
-                    modifier = Modifier.padding(start = 20.dp).align(Alignment.CenterVertically),
+                    modifier = Modifier.align(Alignment.CenterVertically),
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.width(20.dp))
@@ -160,40 +172,31 @@ fun HomeUI(){
                     }
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-                Card(modifier = Modifier.height(50.dp).width(90.dp).align(Alignment.CenterVertically),
-                    shape = RoundedCornerShape(10.dp)
-                    ){
-                    Box {
-                        Image(painter = painterResource(R.drawable.card_background1),
-                            contentDescription = "Card Background",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = androidx.compose.ui.layout.ContentScale.Crop
-                        )
-                        Text(
-                            text = "**** 4912",
-                            color = Color.White,
-                            modifier = Modifier.padding(start = 10.dp).align(Alignment.BottomStart),
-
-                            )
+                Row(modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .horizontalScroll(rememberScrollState())){
+                    cardList.forEach { card ->
+                        val last4Digits = card.number.takeLast(4)
+                        Card(modifier = Modifier.height(50.dp).width(90.dp).align(Alignment.CenterVertically),
+                            shape = RoundedCornerShape(10.dp)
+                        ){
+                            Box {
+                                Image(painter = painterResource(R.drawable.card_background1),
+                                    contentDescription = "Card Background",
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop
+                                )
+                                Text(
+                                    text = "**** $last4Digits",
+                                    color = Color.White,
+                                    modifier = Modifier.padding(start = 10.dp).align(Alignment.BottomStart)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
                     }
                 }
-                Spacer(modifier = Modifier.width(10.dp))
-                Card(modifier = Modifier.height(50.dp).width(90.dp).align(Alignment.CenterVertically),
-                    shape = RoundedCornerShape(10.dp)){
-                    Box {
-                        Image(painter = painterResource(R.drawable.card_background2),
-                            contentDescription = "Card Background",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = androidx.compose.ui.layout.ContentScale.Crop
-                        )
-                        Text(
-                            text = "**** 5238",
-                            color = Color.White,
-                            modifier = Modifier.padding(start = 10.dp).align(Alignment.BottomStart),
 
-                        )
-                    }
-                }
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -271,9 +274,11 @@ fun HomeUI(){
                         fontWeight = FontWeight.Bold
                         )
                     Spacer(modifier = Modifier.weight(1f))
+
                     Row{
                         Text(text = "See Details",
-                            modifier = Modifier.align(Alignment.CenterVertically),
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                                .clickable { onNavigateTo("seeDetails") },
                             color = Color(0xFF47815a),
                             fontWeight = FontWeight.Bold
                             )
@@ -360,6 +365,104 @@ fun HomeUI(){
 }
 
 @Composable
-fun seeDetails(){
+fun SeeDetailsUI(){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 20.dp, end = 20.dp)
+        ) {
+            Spacer(modifier = Modifier.height(15.dp))
+            Text(
+                text = "Transaction Details",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+            )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                dataList.forEach { item ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 6.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Card(
+                                modifier = Modifier.size(56.dp),
+                                shape = CircleShape,
+                                colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+                            ) {
+                                Image(
+                                    imageVector = item.image,
+                                    contentDescription = "Profile Image",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(16.dp))
+
+                            Column(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = item.profileName,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp
+                                    )
+                                    Text(
+                                        text = item.paymentAmount,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 16.sp,
+                                        color = Color(0xFF2E7D32)
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(
+                                        text = item.paymentTime,
+                                        fontSize = 13.sp,
+                                        color = Color.Gray
+                                    )
+                                    Text(
+                                        text = item.paymentStatus,
+                                        fontSize = 13.sp,
+                                        color = if (item.paymentStatus == "Success") Color(0xFF388E3C) else Color.Red
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

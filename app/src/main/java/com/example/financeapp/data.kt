@@ -77,3 +77,15 @@ val monthYearList = listOf(
     MonthYear("November", 2025, dataList3, "+$2700"),
     MonthYear("December", 2025, dataList2, "-$1700")
 )
+
+data class CardInfo(
+    val name: String,
+    val number: String,
+    val expiry: String,
+    val cvv: String
+)
+
+val cards = listOf(
+    CardInfo("Alice", "1234567890123456", "12/24", "123"),
+    CardInfo("Bob", "9876543210987654", "10/23", "321")
+)
