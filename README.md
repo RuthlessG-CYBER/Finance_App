@@ -36,6 +36,10 @@
 <img src="https://github.com/user-attachments/assets/d14e2c11-c0c0-4e24-bb12-ca9bf20627e0" height="200px">
 <img src="https://github.com/user-attachments/assets/c1af851e-920f-407c-b960-28b59e99d0a2" height="200px">
 
+
+###  Day 8
+<img src="https://github.com/user-attachments/assets/10baee82-2465-4bb7-97b5-7acf1a0fd8e4" height="200px">
+
 ---
 
 📌 *Stay tuned for more updates!*
