@@ -293,7 +293,7 @@ fun HomeUI(cardList: List<CardInfo>, onNavigateTo: (String) -> Unit){
                 }
                 Spacer(modifier = Modifier.height(15.dp))
 
-                Column(modifier = Modifier){
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())){
                     dataList.take(5).forEach { item ->
                         Card(modifier = Modifier.fillMaxWidth()
                             .height(70.dp)
@@ -313,7 +313,7 @@ fun HomeUI(cardList: List<CardInfo>, onNavigateTo: (String) -> Unit){
                                 ){
                                     Image(imageVector = item.image,
                                         contentDescription = "Profile Image",
-                                        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                                        contentScale = ContentScale.Crop,
                                         modifier = Modifier.fillMaxSize()
                                     )
                                 }
@@ -322,8 +322,7 @@ fun HomeUI(cardList: List<CardInfo>, onNavigateTo: (String) -> Unit){
                                     .padding(top = 15.dp, bottom = 15.dp),
                                     colors = CardDefaults.cardColors(
                                         containerColor = Color.Transparent
-                                    )
-                                    ){
+                                    )){
                                     Box(modifier = Modifier.fillMaxSize()) {
                                         Text(
                                             text = item.profileName,

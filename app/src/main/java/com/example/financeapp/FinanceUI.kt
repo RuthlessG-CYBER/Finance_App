@@ -57,7 +57,7 @@ fun FinanceUI(navController: NavHostController){
                 containerColor = Color.Transparent
             ))
         {
-            Card(modifier = Modifier.size(90.dp),
+            Card(modifier = Modifier.size(100.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = Color.Transparent
                 ))
@@ -98,7 +98,7 @@ fun FinanceUI(navController: NavHostController){
 
             Spacer(modifier = Modifier.height(60.dp))
 
-            TextButton(onClick = {},
+            TextButton(onClick = { navController.navigate("SignupUI") },
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .fillMaxWidth()
@@ -115,6 +115,8 @@ fun FinanceUI(navController: NavHostController){
                     fontSize = 15.sp
                 )
             }
+
+            Spacer(modifier = Modifier.height(20.dp))
 
             Card(modifier = Modifier
                 .height(40.dp)
@@ -159,7 +161,7 @@ fun FinanceUI(navController: NavHostController){
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Normal,
                             textDecoration = TextDecoration.Underline,
-                            modifier = Modifier.padding(start = 1.dp)
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
                         )
                     }
 
@@ -240,7 +242,11 @@ fun LoginUI(navController: NavHostController){
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            TextButton(onClick = { /*TODO*/ },
+            TextButton(onClick = {
+                if (email == "somu@gmail.com" && password == "1234"){
+                    navController.navigate("Main")
+                }
+            },
                 modifier = Modifier.padding(start = 30.dp, end = 30.dp)
                     .fillMaxWidth()
                     .height(50.dp),
@@ -253,7 +259,7 @@ fun LoginUI(navController: NavHostController){
                 )
             }
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(modifier = Modifier)
             {
@@ -392,7 +398,7 @@ fun SignupUI(navController: NavHostController){
                 )
             }
 
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(modifier = Modifier)
             {
@@ -448,6 +454,9 @@ fun Navigation(){
         }
         composable("FinanceUI") {
             FinanceUI(navController)
+        }
+        composable("Main") {
+            MainScreen(navController)
         }
     }
 }

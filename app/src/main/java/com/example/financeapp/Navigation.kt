@@ -49,7 +49,7 @@ import com.example.financeapp.CardInfo
 //}
 
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
     val cardList = remember { mutableStateListOf<CardInfo>() }
     var selectedRoute by remember {mutableStateOf("bar")}
     Scaffold(
@@ -79,7 +79,7 @@ fun MainScreen() {
                 }
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = {
-                    selectedRoute = ""
+                    selectedRoute = "scanner"
                 }) {
                     Icon(Icons.Default.QrCodeScanner, contentDescription = "Scanner",
                         modifier = Modifier.size(30.dp),
@@ -119,6 +119,7 @@ fun MainScreen() {
                     )
                 }
                 "seeDetails" -> SeeDetailsUI()
+                "scanner" -> QRScannerScreen()
                 "addCard" -> AddCardUI(cardList)
                 "account" -> ProfileUI()
                 else -> HomeUI(cardList = cardList, onNavigateTo = { selectedRoute = it })
